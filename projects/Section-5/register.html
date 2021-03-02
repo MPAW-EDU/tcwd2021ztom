@@ -7,27 +7,38 @@
     <title>Register</title>
 </head>
 <body>
-    <a href="../Section-4/index.html"><button>Return</button></a>
-    <form action="">
-        <br>
-        <input type="text" placeholder="First Name" name="firstname" required><br>
-        <input type="text" placeholder="Last Name" name="lastname"><br>
-        <input type="email" placeholder="Email" name="email" required><br>
-        <input type="password" placeholder="Password" name="password" minlength="8" required> <br>
-        <input type="date" name="birthday"><br>
-        Gender: <br>
-        <input type="radio" name="gender">Male
-        <input type="radio" name="gender">Female <br>
-        Pets: <br>
-        <input type="checkbox" name="cat">Cat
-        <input type="checkbox" name="dog">Dog <br>
-        Cars: <br>
-        <select name="car" id="">
-            <option value="volvo" name="volvo">Volvo</option>
-            <option value="audi" name="audi">Audi</option>
-        </select><br>
-        <input type="submit" value="register">
-        <input type="reset">
-    </form>
+    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; padding-top: 15%;">
+        <header>
+            <h1>Register</h1>
+        </header>
+        <nav>
+            <a href="../Section-4/index.html"><button>Return</button></a>
+        </nav>
+
+        <main>
+            <form action="">
+                <br>
+                <input type="text" placeholder="First Name" name="firstname" required><br>
+                <input type="text" placeholder="Last Name" name="lastname"><br>
+                <input type="email" placeholder="Email" name="email" required><br>
+                <input type="password" placeholder="Password" name="password" minlength="8" required> <br>
+                <input type="date" name="birthday"><br>
+                Gender: <br>
+                <input type="radio" name="gender" value="male">Male
+                <input type="radio" name="gender" value="female">Female <br>
+                Pets: <br>
+                <input type="checkbox" name="cat">Cat
+                <input type="checkbox" name="dog">Dog <br>
+                Cars: <br>
+                <select name="cars" id="">
+                    <option value="volvo" name="volvo">Volvo</option>
+                    <option value="audi" name="audi">Audi</option>
+                </select><br>
+                <input type="submit" value="register">
+                <input type="reset">
+            </form>
+        </main>
+        <footer>Made with AWESOME!</footer>
+    </div>
 </body>
 </html>
