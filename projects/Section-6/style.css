@@ -1,12 +1,73 @@
 
-h2 {
-    color: red;
+* {
+    text-align: right;
+}
+
+body {
+    background-image: url("./background-img.jpg");
+    background-size: cover;
+}
+
+li {
+    list-style: none;
+    display: inline-block;
+}
+
+h2, p {
+    color:#AA4139;
+    text-align: center;
+
+    cursor: pointer;
 }
 
 p {
     color: hotpink;
+    line-height: 20px;
+    font-style: italic;
+    font-family: 'Grenze Gotisch', cursive;
+    font-size: 2rem;
+}
+
+img {
+    width:250px;
+    float: left;
 }
 
 p {
     color: darkorange;
+    padding: 5px;
+    line-height: 40px;
+}
+
+.webtext {
+   
+    color: indianred;
+}
+
+div {
+    padding: 15px;
+}
+
+#div1 {
+    background: rgba(0,0,255, 0.2);
+}
+
+#div2 {
+    background: rgba(255,0,0, 0.2);
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    color: crimson;
+}
+
+.boxModel {
+    border: 5px solid red;
+    display: inline-block;
+    color: darkred;
+    padding: 5px 20px;
+    margin: 0 12%;
+    height: 55px;
+    width: 33px;
 }
