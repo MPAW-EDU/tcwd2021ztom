@@ -11,3 +11,10 @@ html {
   -o-background-size: cover;
   background-size: cover;
 }
+
+.dialogue {
+    margin: 56rem 0 0 4rem;
+    top: 0px;
+    position: fixed;
+    color: rgba(205,205,210,0.7);
+}
