@@ -41,3 +41,7 @@ hr {
   border-color: #ee4b08;
   border-width: 4px;
 }
+
+.buffer {
+  height: 10rem;
+}
