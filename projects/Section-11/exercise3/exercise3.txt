@@ -6,20 +6,5 @@
 // 4. stores that number and responds with the SUM by using an alert.  
 
 
+
 // BONUS: Make a program that can subtract, multiply, and also divide!
-
-let input
-let result
-
-while (result === undefined) {
-    let numOne = prompt("First: ");
-    let numTwo = prompt("Second: ");
-
-    if (!isNaN(numOne) && !isNaN(numTwo)){
-        result = Number(numOne + numTwo);
-    } else {
-        alert("One or more non-numerical inputs detected, try again.")
-    }
-}
-
-alert(f`The sum is {result});
