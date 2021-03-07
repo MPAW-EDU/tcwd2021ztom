@@ -67,5 +67,8 @@ const Signin = (userInput, passwordInput) => {
     return result
 }
 
+let usernamePrompt = prompt("Username: ");
+let passwordPrompt = prompt("Password: ")
+
 console.log(Signin("Mike","12345678"));
 
