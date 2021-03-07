@@ -30,7 +30,7 @@ const newsfeed = [
         'timeline': 'I\'m Boss Bish!'
     },
     {
-        'username': 'Nishon',
+        'username': 'Helba',
         'timeline': 'Cut Ya!'
     },
     {
@@ -52,22 +52,20 @@ const Register = () => {
     database[length] = newUser.getUser();
 }
 
-const Signin = (username, password) => {
+const Signin = (userInput, passwordInput) => {
+    let result = 0
     console.log(database);
-    database.forEach(user => {
-        console.log(user);
-        checkUser: if (user.username === username){
-            console.log(user.username === username);
-            if (user.password === password) {
-                console.log("Welcome");
-                break checkUser;
-            }
+    
+    for (user of database){
+        if (user.username === userInput && user.password === passwordInput){
+            return newsfeed[0].timeline
         } else {
-            console.log ("Incorrect Username or Password!")
+            return "Incorrect Username or Password"
         }
-    })
+    }
+    
+    return result
 }
 
-console.log(database);
+console.log(Signin("Mike","12345678"));
 
-console.log(Signin('Mike', '12345678'));
