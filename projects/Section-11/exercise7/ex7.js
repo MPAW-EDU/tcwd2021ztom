@@ -14,13 +14,13 @@ class User {
     }
 }
 
-// const u123 = new user("Mike","12345678");
-// const u234 = new user("Helba","23456789");
+const u123 = new User("Mike","12345678");
+const u234 = new User("Helba","23456789");
 
-// database[0] = u123.getUser()
-// database[1] = u234.getUser()
+database[0] = u123.getUser()
+database[1] = u234.getUser()
 
-// console.log(database);
+console.log(database);
 
 // console.log(database[0].username);
 
@@ -39,7 +39,7 @@ const newsfeed = [
     }
 ]
 
-const addUser = () => {
+const Register = () => {
     // Normally on the frontend
     let username = prompt("What's your name? ");
     let password = prompt("Enter a password? ");
@@ -52,12 +52,22 @@ const addUser = () => {
     database[length] = newUser.getUser();
 }
 
+const Signin = (username, password) => {
+    console.log(database);
+    database.forEach(user => {
+        console.log(user);
+        checkUser: if (user.username === username){
+            console.log(user.username === username);
+            if (user.password === password) {
+                console.log("Welcome");
+                break checkUser;
+            }
+        } else {
+            console.log ("Incorrect Username or Password!")
+        }
+    })
+}
+
 console.log(database);
 
-addUser()
-
-console.log(database);
-
-addUser()
-
-console.log(database);
+console.log(Signin('Mike', '12345678'));
