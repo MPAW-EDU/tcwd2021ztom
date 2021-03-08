@@ -20,3 +20,13 @@ for (item of todo) {
     console.log(item);
 
 }
+
+let run = false;
+
+while (run){
+    console.log("Run Run");
+}
+
+do {
+    console.log("Run, Run, Run");
+} while (run)
