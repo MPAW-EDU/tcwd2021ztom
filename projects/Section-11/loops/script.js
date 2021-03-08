@@ -30,3 +30,12 @@ while (run){
 do {
     console.log("Run, Run, Run");
 } while (run)
+
+
+// Can pass a function into a .forEach, so long as the funciton takes in two variables
+// it will automatically be passed the item and it's index location.
+function logTodos(todo, i) {
+    console.log(todo, i);
+}
+
+todo.forEach(logTodos)
