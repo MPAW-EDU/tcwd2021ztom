@@ -67,8 +67,7 @@ const Signin = (userInput, passwordInput) => {
     return result
 }
 
-let usernamePrompt = prompt("Username: ");
-let passwordPrompt = prompt("Password: ")
+let usernamePrompt = prompt("Username: ");let passwordPrompt = prompt("Password: ")
 
 Signin(usernamePrompt,passwordPrompt)
 
