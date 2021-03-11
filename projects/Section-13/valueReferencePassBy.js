@@ -34,10 +34,16 @@ console.log(d);
 let obj3 = {a: 'a', b: 'b', c: {super: "Trooper"}};
 let clone1 = Object.assign({}, obj3)
 let clone2 = {...obj3}
+
+/**
+ *  This is the best way to deep copy complex objects
+ */
 let superClone = JSON.parse(JSON.stringify(obj3));
+
 obj3.c = 10;
 clone2.c = 100
 
+superClone.c.super = "Troopa"
 
 console.log(obj3);
 console.log(clone2);
