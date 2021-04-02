@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 
 import './hello.css';
 
-export default class Hello extends Component {
-    render() {
+const Hello = (props) => {
         return (
             <div className="f1 tc">
                 <h1>Hello Component</h1>
-                <p>Welcome to React</p>
+                <p>Welcome to React {props.name}</p>
             </div>
         )
-    }
 }
+
+export default Hello;

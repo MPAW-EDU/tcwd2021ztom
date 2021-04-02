@@ -7,7 +7,7 @@ import 'tachyons';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Hello />
+    <Hello name="Ninja"/>
   </React.StrictMode>,
   document.getElementById('root')
 );
