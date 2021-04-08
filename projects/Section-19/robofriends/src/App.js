@@ -2,10 +2,9 @@
 import React, { Component, useState } from 'react'
 import CardList from './CardList';
 import Searchbox from './Searchbox';
+import Scroll from './Scroll';
 
 import axios from 'axios';
-
-// import { robots } from './robots';
 
 import './app.css';
 
@@ -27,7 +26,7 @@ export default class App extends Component {
             // console.log(res.data)
         )
         .catch( err =>
-            console.log(`API CALL FAILED ${err}`)
+            console.log(`API CALL FAILED: ${err}`)
         );
     };
 
@@ -44,7 +43,9 @@ export default class App extends Component {
             <div className="tc">
                 <h1 className="f1">RoboFriends</h1>
                 <Searchbox onSearchChange={this.onSearchChange}/>
-                <CardList robots={filteredRobots} />
+                <Scroll>
+                    <CardList robots={filteredRobots} />
+                </Scroll>
             </div>
         )
     }
