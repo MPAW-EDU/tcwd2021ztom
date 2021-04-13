@@ -1,10 +1,6 @@
 import './App.css';
 
-import { useState } from 'react' 
-
 import Particles from 'react-particles-js';
-
-import brain from './components/Logo/brain.png';
 
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
@@ -13,15 +9,17 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 
 const particlesOptions = {
   particles: {
-      shape: {
-          type: 'images',
-          image: [
-              {src: {brain}, height: 20, width: 20},
-              {src: {brain}, height: 20, width: 20},
-          ]
+    line_linked: {
+      shadow: {
+        enable: true,
+        color: "#3CA9D1",
+        blur: 5
       }
+    }
   }
 }
+
+
 
 
 function App() {
