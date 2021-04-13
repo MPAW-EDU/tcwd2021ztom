@@ -1,3 +1,6 @@
+
+import { Component } from 'react';
+
 import './App.css';
 
 import Particles from 'react-particles-js';
@@ -9,36 +12,52 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 
 const particlesOptions = {
   particles: {
-    line_linked: {
-      shadow: {
+    number: {
+      value: 30,
+      density: {
         enable: true,
-        color: "#3CA9D1",
-        blur: 5
+        value_area: 800
       }
     }
   }
 }
 
 
+export default class App extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      input: '',
+    };
+  };
 
-function App() {
+  onInputChange = (event) => {
+    console.log(event.target.value);
+  }
 
+  onSubmit = () => {
+    console.log('Clicked');
+  }
 
+  render(){
+    return (
+      <div className="App">
+        <Particles 
+        className="particles"
+          params={particlesOptions}
+        />
+        <Navigation />
+        <Logo />
+        <Rank />
+        <ImageLinkForm 
+          onInputChange={this.onInputChange} 
+          onButtonSubmit={this.onSubmit}
+        />
+        {/*<FaceRecognition /> */}
+      </div>
+    );
+  }
 
-  return (
-    <div className="App">
-      <Particles 
-      className="particles"
-        params={particlesOptions}
-      />
-      <Navigation />
-      <Logo />
-      <Rank />
-      <ImageLinkForm />
-      {/*<FaceRecognition /> */}
-    </div>
-  );
 }
 
-export default App;
