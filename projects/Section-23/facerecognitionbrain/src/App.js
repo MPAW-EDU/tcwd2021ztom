@@ -10,6 +10,13 @@ import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 
+const API_KEY = ''
+
+const Clafifai = require('clarifai');
+const app = new Clafifai.App({
+  apiKey: `${API_KEY}`,
+});
+
 const particlesOptions = {
   particles: {
     number: {
@@ -36,9 +43,17 @@ export default class App extends Component {
     console.log(event.target.value);
   }
 
-  onSubmit = () => {
+  onButtonSubmit = () => {
     console.log('Clicked');
-  }
+    app.models.pedict(`${API_KEY}`, "https://samples.clarifai.com/face-det.jpg").then(
+      function(response) {
+        // do something with response
+      },
+      function(err) {
+        // there was an error
+      }
+    );
+  };
 
   render(){
     return (
@@ -52,7 +67,7 @@ export default class App extends Component {
         <Rank />
         <ImageLinkForm 
           onInputChange={this.onInputChange} 
-          onButtonSubmit={this.onSubmit}
+          onButtonSubmit={this.onButtonSubmit}
         />
         {/*<FaceRecognition /> */}
       </div>
