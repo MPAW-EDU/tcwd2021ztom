@@ -11,7 +11,7 @@ import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Clafifai from 'clarifai';
 
-const API_KEY = '';
+const API_KEY = "";
 
 
 const app = new Clafifai.App({
@@ -46,7 +46,11 @@ export default class App extends Component {
 
   onButtonSubmit = () => {
     console.log('Clicked');
-    app.models.pedict(`${API_KEY}`, "https://samples.clarifai.com/face-det.jpg").then(
+    app.models
+    // Call the type of model in the predict method
+    .predict(Clafifai.FACE_DETECT_MODEL,
+       "https://randomuser.me/api/portraits/women/35.jpg")
+    .then(
       function(response) {
         // do something with response
         console.log(response);
