@@ -4,12 +4,13 @@ import { Component } from 'react';
 import './App.css';
 
 import Particles from 'react-particles-js';
+import Clafifai from 'clarifai';
 
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import Clafifai from 'clarifai';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 
 const API_KEY = "";
 
@@ -37,15 +38,16 @@ export default class App extends Component {
     super();
     this.state = {
       input: '',
+      imageUrl: '',
     };
   };
 
   onInputChange = (event) => {
-    console.log(event.target.value);
+    this.setState({input: event.target.value});
   }
 
   onButtonSubmit = () => {
-    console.log('Clicked');
+    this.setState({imageUrl: this.state.input})
     app.models
     // Call the type of model in the predict method
     .predict(Clafifai.FACE_DETECT_MODEL,
@@ -75,7 +77,7 @@ export default class App extends Component {
           onInputChange={this.onInputChange} 
           onButtonSubmit={this.onButtonSubmit}
         />
-        {/*<FaceRecognition /> */}
+        <FaceRecognition imageUrl={this.state.imageUrl} />
       </div>
     );
   }
