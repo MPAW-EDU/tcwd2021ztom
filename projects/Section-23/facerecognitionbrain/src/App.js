@@ -1,4 +1,5 @@
 
+
 import { Component } from 'react';
 
 import './App.css';
@@ -39,7 +40,26 @@ export default class App extends Component {
     this.state = {
       input: '',
       imageUrl: '',
+      box: {},
     };
+  };
+
+  calculateFaceLocation = (data) => {
+    const clarifaiFace=  data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById('inputImage');
+    const width = Number(image.width);
+    const height = Number(image.height);
+
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - (clarifaiFace.right_col * width),
+      bottomRow: height - (clarifaiFace.bottom_row * height),
+    }
+  };
+
+  displayDetectionBox = (box) => {
+    this.setState({box: box});
   };
 
   onInputChange = (event) => {
@@ -51,16 +71,9 @@ export default class App extends Component {
     app.models
     // Call the type of model in the predict method
     .predict(Clafifai.FACE_DETECT_MODEL,
-       "https://randomuser.me/api/portraits/women/35.jpg")
-    .then(
-      function(response) {
-        // do something with response
-        console.log(response);
-      },
-      function(err) {
-        // there was an error
-      }
-    );
+       this.state.input)
+    .then(res => this.displayDetectionBox(this.calculateFaceLocation(res)))
+    .catch(err => console.log(err));
   };
 
   render(){
@@ -77,7 +90,7 @@ export default class App extends Component {
           onInputChange={this.onInputChange} 
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceRecognition imageUrl={this.state.imageUrl} />
+        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
       </div>
     );
   }
