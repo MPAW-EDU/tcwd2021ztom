@@ -44,6 +44,7 @@ export default class App extends Component {
       imageUrl: '',
       box: {},
       route: 'signin',
+      isSignedIn: false,
     };
   };
 
@@ -80,7 +81,12 @@ export default class App extends Component {
   };
 
   onRouteChange = (route) => {
-    this.setState({route: route});
+    if (route === 'home') this.setState({isSignedIn: true})
+    if (route === 'signout') {
+      this.setState({isSignedIn: false, route: 'signin'})
+    } else{
+      this.setState({route: route});
+    }
   }
 
   render(){
@@ -90,7 +96,7 @@ export default class App extends Component {
         className="particles"
           params={particlesOptions}
         />
-        <Navigation onRouteChange={this.onRouteChange}/>
+        <Navigation onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
         {
           this.state.route === 'home'
           ?<div>
@@ -102,9 +108,10 @@ export default class App extends Component {
             />
             <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
           </div>
-          :this.state.route=== 'signin'
+          :(this.state.route=== 'signin'
           ? <Signin onRouteChange={this.onRouteChange}/>
           : <Register onRouteChange={this.onRouteChange}/>
+          )
         }
       </div>
     );
