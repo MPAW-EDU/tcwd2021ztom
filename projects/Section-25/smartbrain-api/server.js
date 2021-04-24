@@ -1,5 +1,6 @@
 
 const express = require('express');
+const bcrypt = require('bcrypt-nodejs');
 
 const app = express();
 app.use(express.json());
@@ -121,6 +122,23 @@ app.put('/image', (req,res) => {
 
 })
 
+
+/**
+ *  @function bcrypt
+ *  @description Allows us to hash, and compare passwords for authenticaiton
+ */
+
+bcrypt.hash("bacon", null, null, function(err, hash) {
+    // Store hash in your PW DB
+});
+
+bcrypt.compare("bacon", hash, function(err, res) {
+    // res == true
+})
+
+bcrypt.compare("veggie", hash, function(err, res) {
+    // res = false
+})
 
 
 app.listen(PORT, () => {
