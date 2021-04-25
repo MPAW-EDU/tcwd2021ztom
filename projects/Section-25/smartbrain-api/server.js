@@ -77,7 +77,17 @@ app.post('/register', (req,res) => {
 
     database.users.push(newUser);
 
-    res.status(201).json(database.users[database.users.length-1]);
+    const lastUser = database.users[database.users.length-1];
+
+    const returnUser = {
+        id: lastUser.id,
+        name: lastUser.name,
+        email: lastUser.email,
+        entries: lastUser.entries,
+        joined: lastUser.joined
+    }
+
+    res.status(201).json(returnUser);
 
 })
 
