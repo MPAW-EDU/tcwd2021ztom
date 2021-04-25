@@ -1,10 +1,12 @@
 
 const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cors());
 
 let PORT = process.env.PORT;
 if (PORT === null || PORT === undefined || PORT === ''){
@@ -63,7 +65,8 @@ app.post('/register', (req,res) => {
     const {name, email, password} = req.body;
     const joined = new Date();
 
-    const newUser = {
+
+    let newUser = {
         id : id,
         name: name,
         email: email,
@@ -128,17 +131,17 @@ app.put('/image', (req,res) => {
  *  @description Allows us to hash, and compare passwords for authenticaiton
  */
 
-bcrypt.hash("bacon", null, null, function(err, hash) {
-    // Store hash in your PW DB
-});
+// bcrypt.hash("bacon", null, null, function(err, hash) {
+//     // Store hash in your PW DB
+// });
 
-bcrypt.compare("bacon", hash, function(err, res) {
-    // res == true
-})
+// bcrypt.compare("bacon", hash, function(err, res) {
+//     // res == true
+// })
 
-bcrypt.compare("veggie", hash, function(err, res) {
-    // res = false
-})
+// bcrypt.compare("veggie", hash, function(err, res) {
+//     // res = false
+// })
 
 
 app.listen(PORT, () => {
