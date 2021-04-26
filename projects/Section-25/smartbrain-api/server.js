@@ -48,9 +48,9 @@ app.get('/', (req,res) => {
  */
 app.post('/signin', (req,res) => {
     const {email, password} = req.body;
-
-    if (email === database.users[1].email && password === database.users[1].password){
-        res.status(200).json("success");
+    console.log(email, password);
+    if (email === database.users[0].email && password == database.users[0].password){
+        res.status(200).json(database.users[0]);
     } else {
         res.status(400).json('error logging in')
     }
@@ -125,7 +125,7 @@ app.put('/image', (req,res) => {
         if ( user.id === Number(id) ){
             found = true;
             ++user.entries;
-            return res.status(201).json(`Entries Increased ${user.name}: ${user.entries}`)
+            return res.status(201).json(user.entries)
         }
     })
 
