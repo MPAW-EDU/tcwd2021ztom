@@ -48,7 +48,7 @@ app.get('/', (req,res) => {
  */
 app.post('/signin', (req,res) => {
     const {email, password} = req.body;
-    console.log(email, password);
+    
     if (email === database.users[0].email && password == database.users[0].password){
         res.status(200).json(database.users[0]);
     } else {
