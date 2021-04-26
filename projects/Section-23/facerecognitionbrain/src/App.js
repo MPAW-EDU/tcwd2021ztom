@@ -93,7 +93,20 @@ export default class App extends Component {
     // Call the type of model in the predict method
     .predict(Clafifai.FACE_DETECT_MODEL,
        this.state.input)
-    .then(res => this.displayDetectionBox(this.calculateFaceLocation(res)))
+    .then(res => {
+      if (res) {
+        fetch('http://localhost:5050/image', {
+          method: 'put',
+          headers: {'Content-Type' : 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        })
+        .then(res => res.json())
+        .then(count => this.setState({user:{...this.state.user,entries: count}}))
+      }
+      this.displayDetectionBox(this.calculateFaceLocation(res))
+    })
     .catch(err => console.log(err));
   };
 
@@ -118,7 +131,7 @@ export default class App extends Component {
           this.state.route === 'home'
           ?<div>
             <Logo />
-            <Rank />
+            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
               onButtonSubmit={this.onButtonSubmit}
@@ -126,7 +139,7 @@ export default class App extends Component {
             <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
           </div>
           :(this.state.route=== 'signin'
-          ? <Signin onRouteChange={this.onRouteChange}/>
+          ? <Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
           : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
           )
         }
