@@ -53,3 +53,17 @@ SELECT * FROM users WHERE name LIKE 'A%';  /'%a' to check end
 
 ## Putting the data in order
 SELECT * FROM users ORDER BY score DESC / ASC;
+
+
+## SQL: Functions, the most common
+- Get the average of a columns number set
+SELECT AVG(column_name) FROM table_name;
+
+- Get the sum of a columns number set
+SELECT SUM(column_name) FROM table_name;
+
+- Count the total number of rows in a column
+SELECT COUNT(column_name) FROM table_name;
+
+
+## Joining Tables
