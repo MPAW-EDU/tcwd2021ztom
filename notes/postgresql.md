@@ -29,3 +29,17 @@ CREATE TABLE table_name (column_1 datatype, column_2 datatype, column_2 datatype
 
 ## Quit
 \q
+
+## Inserting Data
+INSERT INTO table_name (column_1, column_2, column_3) VALUES (value_1, 'Value_2', value_3);
+
+## See values added
+SELECT name,age,birthday FROM users;
+
+## Modifying an Existing Table
+ALTER TABLE table_name ADD column_name datatype;
+
+## Updating a Table, all on the same line
+UPDATE table_name
+SET column_name = new_value
+WHERE row_name = target_value;
