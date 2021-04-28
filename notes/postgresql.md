@@ -65,5 +65,9 @@ SELECT SUM(column_name) FROM table_name;
 - Count the total number of rows in a column
 SELECT COUNT(column_name) FROM table_name;
 
+## Deleting Data
+DELETE FROM table_name Where col_name = var;
 
-## Joining Tables
+
+## Dropping a Table
+DROP TABLE table_name;
