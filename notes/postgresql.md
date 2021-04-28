@@ -43,3 +43,13 @@ ALTER TABLE table_name ADD column_name datatype;
 UPDATE table_name
 SET column_name = new_value
 WHERE row_name = target_value;
+
+## Conditional Selections
+
+- Checking for names that begin with an A, 
+    this can be used to evaluate partial matches.
+SELECT * FROM users WHERE name LIKE 'A%';  /'%a' to check end
+
+
+## Putting the data in order
+SELECT * FROM users ORDER BY score DESC / ASC;
