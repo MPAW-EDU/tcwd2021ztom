@@ -15,6 +15,21 @@ if (PORT === null || PORT === undefined || PORT === ''){
 }
 
 
+const db = knex({
+    client: 'pg',
+    connection: {
+        host: '127.0.0.1',
+        user: 'michael',
+        password: '',
+        database: 'smart-brain'
+    }
+});
+
+// db.select('*').from('users').then(data => {
+//     console.log(data);
+// })
+
+
 let database = {
     users: [
         {
@@ -64,19 +79,12 @@ app.post('/signin', (req,res) => {
 app.post('/register', (req,res) => {
     const id = database.users[database.users.length-1].id + 1
     const {name, email, password} = req.body;
-    const joined = new Date();
 
-
-    let newUser = {
-        id : id,
-        name: name,
+    db('users').insert({
         email: email,
-        password: password,
-        entries: 0,
-        joined: joined
-    }
-
-    database.users.push(newUser);
+        name: name,
+        joined: new Date()
+    }).then(console.log());
 
     const lastUser = database.users[database.users.length-1];
 
