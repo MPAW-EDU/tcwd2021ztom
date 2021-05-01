@@ -77,27 +77,18 @@ app.post('/signin', (req,res) => {
  *   returns: post / user
  */
 app.post('/register', (req,res) => {
-    const id = database.users[database.users.length-1].id + 1
     const {name, email, password} = req.body;
-
-    db('users').insert({
-        email: email,
-        name: name,
-        joined: new Date()
-    }).then(console.log());
-
-    const lastUser = database.users[database.users.length-1];
-
-    const returnUser = {
-        id: lastUser.id,
-        name: lastUser.name,
-        email: lastUser.email,
-        entries: lastUser.entries,
-        joined: lastUser.joined
-    }
-
-    res.status(201).json(returnUser);
-
+    db('users')
+        .returning('*')
+        .insert({
+            email: email,
+            name: name,
+            joined: new Date()
+        })
+        .then(user => {
+            res.status(201).json(user[0]);
+        })
+        .catch(err => res.status(400).json('Unable to Register.'));
 })
 
 /**
@@ -106,19 +97,16 @@ app.post('/register', (req,res) => {
  */
 app.get(`/profile/:id`, (req,res) => {
    const { id } = req.params;
-   let found = false;
    
-   database.users.forEach(user => {
-       if (user.id === Number(id)) {
-           found = true;
-           return res.status(200).json(user)
-       }
-   })
-
-   if (!found) {
-       res.status(400).json('No such user.')
-   }
-
+   db.select('*').from('users').where({id})
+    .then( user => {
+        if (user.length){
+            res.status(200).json(user[0]);
+        } else {
+            res.status(400).json('User Not Found')
+        }
+    })
+    .catch(err => res.status(400).json('Error getting user'))
 })
 
 /**
