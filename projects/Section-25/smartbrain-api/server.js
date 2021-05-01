@@ -30,27 +30,6 @@ const db = knex({
 // })
 
 
-let database = {
-    users: [
-        {
-            id: 123,
-            name: 'Sally',
-            email: 'ItsSally@gmail.com',
-            password: 234567,
-            entries: 0,
-            joined: new Date()
-        },
-        {
-            id: 234,
-            name: 'Guy',
-            email: 'YoGuy@gmail.com',
-            password: 'hotdog',
-            entries: 0,
-            joined: new Date()
-        }
-    ]
-}
-
 
 app.get('/', (req,res) => {
     res.status(200).json(database.users)
@@ -65,11 +44,24 @@ app.get('/', (req,res) => {
 app.post('/signin', (req,res) => {
     const {email, password} = req.body;
     
-    if (email === database.users[0].email && password == database.users[0].password){
-        res.status(200).json(database.users[0]);
-    } else {
-        res.status(400).json('error logging in')
-    }
+    db.select('email', 'hash').from('login')
+        .where('email', '=', email)
+        .then(data => {
+            const isValid = bcrypt.compareSync(password, data[0].hash);
+            if(isValid) {
+                return db
+                    .select('*')
+                    .from('users')
+                    .where('email', '=', email)
+                    .then( user => {
+                        res.status(200).json(user[0]);
+                    })
+                    .catch(err => res.status(400).json('Error fetching user data'))
+            } else {
+                res.status(400).json('Invalid Username or Password')
+            }
+        })
+        .catch(err => res.status(400).json('Invalid Username or Password'))
 })
 
 /**
@@ -78,17 +70,36 @@ app.post('/signin', (req,res) => {
  */
 app.post('/register', (req,res) => {
     const {name, email, password} = req.body;
-    db('users')
-        .returning('*')
-        .insert({
-            email: email,
-            name: name,
-            joined: new Date()
+    const hash = bcrypt.hashSync(password);
+    
+    /**
+     *  Transactions, if one fails they all fail
+     *  writting or reading multiple tables.
+     */
+    db
+        .transaction(trx => {
+            trx.insert({
+                hash: hash,
+                email: email,
         })
-        .then(user => {
-            res.status(201).json(user[0]);
+        .into('login')
+        .returning('email')
+        .then(loginEmail => {
+            return trx('users')
+            .returning('*')
+            .insert({
+                email: loginEmail[0],
+                name: name,
+                joined: new Date()
+            })
+            .then(user => {
+                res.status(201).json(user[0]);
+            })
         })
-        .catch(err => res.status(400).json('Unable to Register.'));
+        .then(trx.commit)
+        .catch(trx.rollback)
+    })
+    .catch(err => res.status(400).json('Unable to Register.'));
 })
 
 /**
@@ -98,7 +109,8 @@ app.post('/register', (req,res) => {
 app.get(`/profile/:id`, (req,res) => {
    const { id } = req.params;
    
-   db.select('*').from('users').where({id})
+   db
+    .select('*').from('users').where({id})
     .then( user => {
         if (user.length){
             res.status(200).json(user[0]);
