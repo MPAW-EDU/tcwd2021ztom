@@ -9,6 +9,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
 
+
+const register = require('./controllers/register');
+
+
 let PORT = process.env.PORT;
 if (PORT === null || PORT === undefined || PORT === ''){
     PORT = 5050;
@@ -68,39 +72,7 @@ app.post('/signin', (req,res) => {
  *   /register, Post 
  *   returns: post / user
  */
-app.post('/register', (req,res) => {
-    const {name, email, password} = req.body;
-    const hash = bcrypt.hashSync(password);
-    
-    /**
-     *  Transactions, if one fails they all fail
-     *  writting or reading multiple tables.
-     */
-    db
-        .transaction(trx => {
-            trx.insert({
-                hash: hash,
-                email: email,
-        })
-        .into('login')
-        .returning('email')
-        .then(loginEmail => {
-            return trx('users')
-            .returning('*')
-            .insert({
-                email: loginEmail[0],
-                name: name,
-                joined: new Date()
-            })
-            .then(user => {
-                res.status(201).json(user[0]);
-            })
-        })
-        .then(trx.commit)
-        .catch(trx.rollback)
-    })
-    .catch(err => res.status(400).json('Unable to Register.'));
-})
+app.post('/register', (req,res) => { register.handleRegister(req, res, db, bcrypt) });
 
 /**
  *  /profile/:userId, get

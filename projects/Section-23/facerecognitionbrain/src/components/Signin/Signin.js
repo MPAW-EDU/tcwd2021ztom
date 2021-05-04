@@ -17,7 +17,7 @@ class Signin extends Component {
         this.setState({signInPassword: event.target.value})
     }
 
-    onSubmit = () => {
+    onSubmitSignin = () => {
         fetch('http://localhost:5050/signin', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
@@ -64,7 +64,7 @@ class Signin extends Component {
                         </fieldset>
                         <div className="">
                         <input 
-                            onClick={this.onSubmit}
+                            onClick={this.onSubmitSignin}
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
                             type="submit" 
                             value="Sign in" />
