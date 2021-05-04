@@ -11,6 +11,9 @@ app.use(cors());
 
 
 const register = require('./controllers/register');
+const signin = require('./controllers/signin');
+const profile = require('./controllers/profile');
+const image = require('./controllers/image');
 
 
 let PORT = process.env.PORT;
@@ -45,28 +48,7 @@ app.get('/', (req,res) => {
  *  /sign in, Post
  * returns: success / failure
  */
-app.post('/signin', (req,res) => {
-    const {email, password} = req.body;
-    
-    db.select('email', 'hash').from('login')
-        .where('email', '=', email)
-        .then(data => {
-            const isValid = bcrypt.compareSync(password, data[0].hash);
-            if(isValid) {
-                return db
-                    .select('*')
-                    .from('users')
-                    .where('email', '=', email)
-                    .then( user => {
-                        res.status(200).json(user[0]);
-                    })
-                    .catch(err => res.status(400).json('Error fetching user data'))
-            } else {
-                res.status(400).json('Invalid Username or Password')
-            }
-        })
-        .catch(err => res.status(400).json('Invalid Username or Password'))
-})
+app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) });
 
 /**
  *   /register, Post 
@@ -78,39 +60,13 @@ app.post('/register', (req,res) => { register.handleRegister(req, res, db, bcryp
  *  /profile/:userId, get
  *  returns user info
  */
-app.get(`/profile/:id`, (req,res) => {
-   const { id } = req.params;
-   
-   db
-    .select('*').from('users').where({id})
-    .then( user => {
-        if (user.length){
-            res.status(200).json(user[0]);
-        } else {
-            res.status(400).json('User Not Found')
-        }
-    })
-    .catch(err => res.status(400).json('Error getting user'))
-})
+app.get(`/profile/:id`, (req,res) => { profile.handleProfileGet(req, res, db)})
 
 /**
  *  /image, put
  *  returns updated user object or data
  */
-app.put('/image', (req,res) => {
-
-    const { id } = req.body;
-
-    db('users')
-        .where('id','=', id)
-        .increment('entries', 1)
-        .returning('entries')
-        .then(entries => {
-            res.status(200).json(entries[0]);
-        })
-        .catch(err => res.status(400).json('Unable to get entries'))
-
-})
+app.put('/image', (req,res) => { image.handleImage(req, res, db) })
 
 
 /**
