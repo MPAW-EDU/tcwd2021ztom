@@ -5,7 +5,6 @@ import { Component } from 'react';
 import './App.css';
 
 import Particles from 'react-particles-js';
-import Clafifai from 'clarifai';
 
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
@@ -14,13 +13,6 @@ import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
-
-const API_KEY = "";
-
-
-const app = new Clafifai.App({
-  apiKey: `${API_KEY}`,
-});
 
 const particlesOptions = {
   particles: {
@@ -88,13 +80,20 @@ export default class App extends Component {
     this.setState({input: event.target.value});
   }
 
+
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input})
-    app.models
-    // Call the type of model in the predict method
-    .predict(Clafifai.FACE_DETECT_MODEL,
-       this.state.input)
-    .then(res => {
+
+    fetch('http://localhost:5050/imageurl', {
+      method: 'post',
+      headers: {'Content-Type' : 'application/json'},
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
+    .then((response) => response.json())
+    .then((res) => {
+      console.log(res);
       if (res) {
         fetch('http://localhost:5050/image', {
           method: 'put',

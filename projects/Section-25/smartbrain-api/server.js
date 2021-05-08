@@ -68,6 +68,14 @@ app.get(`/profile/:id`, (req,res) => { profile.handleProfileGet(req, res, db)})
  */
 app.put('/image', (req,res) => { image.handleImage(req, res, db) })
 
+/**
+ *  /imageurl, post
+ *  takes request from the user and  securely passes the 
+ *  data to the clarify api.
+ */
+ app.post('/imageurl', (req, res) => {
+    image.handleApiCall(req, res);
+  });
 
 /**
  *  @function bcrypt

@@ -35,7 +35,7 @@ class Register extends Component {
         })
         .then(res => res.json())
         .then(user => {
-            if (user) {
+            if (user.id) {
                 this.props.loadUser(user)
                 this.props.onRouteChange('home');
             }
@@ -57,7 +57,8 @@ class Register extends Component {
                                 className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                                 type="text" 
                                 name="name"  
-                                id="name" />
+                                id="name" 
+                                />
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email">Email</label>
@@ -66,7 +67,8 @@ class Register extends Component {
                                 className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                                 type="email" 
                                 name="email"  
-                                id="email" />
+                                id="email" 
+                                />
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
@@ -75,7 +77,8 @@ class Register extends Component {
                                 className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                                 type="password" 
                                 name="password"  
-                                id="password" />
+                                id="password" 
+                                />
                         </div>
                         </fieldset>
                         <div className="">
@@ -83,7 +86,8 @@ class Register extends Component {
                             onClick={this.onSubmit}
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
                             type="submit" 
-                            value="Register" />
+                            value="Register" 
+                            />
                         </div>
                     </div>
                 </main>
