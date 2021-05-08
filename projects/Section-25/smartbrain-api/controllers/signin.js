@@ -1,6 +1,10 @@
 
 const handleSignin = (req, res, db, bcrypt) => {
     const {email, password} = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json('Incorrect Username or Password.')
+    }
     
     db.select('email', 'hash').from('login')
         .where('email', '=', email)
@@ -16,7 +20,7 @@ const handleSignin = (req, res, db, bcrypt) => {
                     })
                     .catch(err => res.status(400).json('Error fetching user data'))
             } else {
-                res.status(400).json('Invalid Username or Password')
+                res.status(400).json('Incorrect Username or Password')
             }
         })
         .catch(err => res.status(400).json('Invalid Username or Password'))
